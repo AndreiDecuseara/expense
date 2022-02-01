@@ -19,7 +19,7 @@ class RoomGate
      */
     public function handle(Request $request, Closure $next)
     {
-        if(env('SECURITY')){
+        if(config('app.SECURITY')){
             $user = User::find($request->user);
             if($user){
                 if($this->ip() == $user->ip){

@@ -19,6 +19,7 @@ class CreateGroupsTable extends Migration
             $table->foreignId('owner_id')->constrained('users');
             $table->string('slug');
             $table->boolean('end_trip')->default(0);
+            $table->boolean('is_personal')->default(0);
             $table->timestamps();
         });
     }

@@ -4,14 +4,20 @@
     <h1 class="my-4 text-4xl text-center text-green-600 md:text-5xl"><b>{{$user ? 'Welcome, '.$user->name : 'Retro app'}}</b></h1>
     <div class="w-full pt-10 m-auto mt-10 md:w-1/2 ">
       <div class="flex justify-between">
-        <a href="/new-group" class="z-10 flex items-center px-4 py-3 transition duration-1000 ease-in-out bg-white rounded-lg shadow-inner md:px-8 hover:shadow-xl flex-column">
-          <p class="ml-1 text-sm md:text-xl text-orange-400" >Personal</p>
+        @if($user)
+            <button wire:click='personalAcces' class="z-10 flex items-center px-4 py-3 transition duration-1000 ease-in-out bg-white rounded-lg shadow-inner md:px-8 hover:shadow-xl flex-column">
+                <p class="ml-1 text-sm text-orange-400 md:text-xl" >Personal</p>
+            </button>
+        @else
+            <a href="/acces-personal" class="z-10 flex items-center px-4 py-3 transition duration-1000 ease-in-out bg-white rounded-lg shadow-inner md:px-8 hover:shadow-xl flex-column">
+                <p class="ml-1 text-sm text-orange-400 md:text-xl" >Personal</p>
+            </a>
+        @endif
+        <a href="/acces-group" class="z-10 flex items-center px-4 py-3 transition duration-1000 ease-in-out bg-white rounded-lg shadow-inner md:px-8 hover:shadow-xl flex-column">
+          <p class="ml-1 text-sm text-green-600 md:text-xl" >Acces a group</p>
         </a>
-        <a href="/acces-group" class="z-10 flex items-center px-4 py-3  transition duration-1000 ease-in-out bg-white rounded-lg shadow-inner md:px-8 hover:shadow-xl flex-column">
-          <p class="ml-1 text-sm md:text-xl text-green-600" >Acces a group</p>
-        </a>
         <a href="/new-group" class="z-10 flex items-center px-4 py-3 transition duration-1000 ease-in-out bg-white rounded-lg shadow-inner md:px-8 hover:shadow-xl flex-column">
-          <p class="ml-1 text-sm md:text-xl text-blue-400" >New group</p>
+          <p class="ml-1 text-sm text-blue-400 md:text-xl" >New group</p>
         </a>
       </div>
       <div class="flex justify-between mt-10">
@@ -38,6 +44,7 @@
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
                             @foreach($user->rooms as $group)
+                            @if($group->is_personal == 0)
                               <tr>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <a href="{{route('group', ['group' => $group->slug, 'user' => $user->id])}}" class="text-sm text-gray-900">{{$group->name}}</a>
@@ -49,6 +56,7 @@
                                     <div class="text-sm text-red-600"><a href="#"> Delete </a></div>
                                 </td>
                               </tr>
+                              @endif
                             @endforeach
                             </tbody>
                           </table>

@@ -14,7 +14,8 @@ class Group extends Model
     protected $fillable = [
         'name',
         'owner_id',
-        'slug'
+        'slug',
+        'is_personal'
     ];
 
     public function cards(){
